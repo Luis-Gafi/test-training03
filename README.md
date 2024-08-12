@@ -1,4 +1,4 @@
-# Trainig de Automatización de Pruebas con Playwright en Amazon.es
+# Training de Automatización de Pruebas con Playwright en Amazon.es
 
 ## Descripción
 
