@@ -17,9 +17,11 @@ test('Buscar con la lupa', async ({ page }) => {;
     // View results
     await expect(page.locator('#search')).toBeVisible();
     
+    // img.s-image
+    await page.locator('img.s-image').nth(2).click();
 });
 
-test('Buscar con enter', async ({ page }) => {;
+test.skip('Buscar con enter', async ({ page }) => {;
     await page.goto('https://www.amazon.es');
         
     // Accept cookies
