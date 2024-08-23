@@ -16,17 +16,44 @@ async function verifySearchResultsVisible(page) {
     await expect(page.locator('#search')).toBeVisible();
 }
 
-// Prueba de buscar con la lupa
-test('Buscar con la lupa', async ({ page }) => {
+// Función para agregar el producto al carrito
+async function addToCart(page) {
+    // Localiza el botón de añadir al carrito y haz clic en él
+    await page.locator('#add-to-cart-button').click();
+}
+
+// Función para verificar que el producto ha sido añadido al carrito
+async function verifyProductInCart(page) {
+    // Navega al carrito
+    await page.locator('a#nav-cart').click();
+    
+    // Verifica que el producto está en el carrito (esto puede variar según el diseño de Amazon)
+    await expect(page.locator('.sc-list-item-content')).toBeVisible();
+}
+
+// Prueba de buscar, agregar al carrito y verificar
+test('Buscar, agregar y verificar en carrito', async ({ page }) => {
     await navigateAndAcceptCookies(page);
     await searchForItem(page, 'Playstation 5');
     await page.keyboard.press('Enter');
     await verifySearchResultsVisible(page);
-    await page.locator('img.s-image').nth(2).click();
+
+    // Clic en la primera imagen del producto
+    await page.locator('img.s-image').nth(0).click();
+
+    // Espera a que la página del producto se cargue
+    await page.waitForSelector('#add-to-cart-button');
+
+    // Agregar el producto al carrito
+    await addToCart(page);
+
+    // Verificar que el producto ha sido añadido al carrito
+    await verifyProductInCart(page);
 });
 
+
 // Prueba de buscar con Enter
-test.skip('Buscar con enter', async ({ page }) => {
+test('Buscar con enter', async ({ page }) => {
     await navigateAndAcceptCookies(page);
     await searchForItem(page, 'Playstation 5');
     await page.locator('.nav-input[type="submit"]').click();
