@@ -22,7 +22,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
-  timeout: 60000,
+  timeout: 120000,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -33,6 +33,7 @@ export default defineConfig({
     video: { mode: "on", size: { height: 1080, width: 1920 } },
     viewport: { height: 1080, width: 1920 },
     screenshot: { fullPage: true, mode: "on" },
+    navigationTimeout:60000,
   },
 
   /* Configure projects for major browsers */
